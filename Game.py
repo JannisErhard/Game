@@ -5,7 +5,7 @@ from World.maps import *
 pygame.init()
 
 #  load graphics
-ball = pygame.image.load("PNGs/intro_ball.gif")
+ball = pygame.image.load("PNGS/intro_ball.gif")
 tilset = pygame.image.load("PNGS/032-Heaven01_b.png")
 water_autotiles = pygame.image.load("PNGS/001-G_Water01.png")
 water_images = []
@@ -32,7 +32,7 @@ ballrect = small_ball.get_rect()
 
 
 #### Populate the surface with objects to be displayed ####
-world = campaign[1]
+world = campaign[7]
 obstacle_list = []
 bg_list = []
 for y, sublist in enumerate(world):
@@ -101,6 +101,19 @@ while not done:
         # p_{y_t} > t_{y_b} > p_{y_t} + dy & not (tile_{x_r} < p_{x_l} or tile_{x_l} > p_{x_r})
         if player_pos.y >= tile[1].y+tilesize and tile[1].y+tilesize > player_pos.y+dy and not (player_pos.x+tilesize <= tile[1].x or player_pos.x >= tile[1].x+tilesize):
             dy = 0
+        if (player_pos.x+tilesize == tile[1].x or player_pos.x == tile[1].x+tilesize) and (player_pos.y+tilesize == tile[1].y or player_pos.y == tile[1].y+tilesize):
+            # standing top left edge moving down right -> forbidden
+            if player_pos.x+tilesize == tile[1].x  and player_pos.y+tilesize == tile[1].y and dx > 0 and dy > 0:
+                dx, dy = 0,0
+            # standing bottom left edge moving up right -> forbidden
+            if player_pos.x+tilesize == tile[1].x  and player_pos.y == tile[1].y+tilesize and dx > 0 and dy < 0:
+                dx, dy = 0,0
+            # standing top right edge moving bottom left -> forbidden
+            if player_pos.x == tile[1].x+tilesize  and player_pos.y+tilesize == tile[1].y and  dx < 0 and dy > 0:
+                dx, dy = 0,0
+            # standing bottom right edge moving top left -> forbidden
+            if player_pos.x == tile[1].x+tilesize  and player_pos.y == tile[1].y+tilesize and dx < 0 and dy < 0:
+                dx, dy = 0,0
 
 
     # calculate of character has gotten too close to the edge 
@@ -108,7 +121,7 @@ while not done:
 #    if player_pos.x > screen.get_width() - thr or  player_pos.x < thr:
         scroll[0] = -dx
         dx = 0  
-    elif player_pos.y+dy > screen.get_height() - thr or player_pos.y+dy < thr:  
+    if player_pos.y+dy > screen.get_height() - thr or player_pos.y+dy < thr:  
         scroll[1] = -dy 
         dy = 0
 
@@ -118,31 +131,21 @@ while not done:
     abs_p_left = scroll_memory[0] + player_pos.x
     abs_p_bottom = scroll_memory[1] + player_pos.y + tilesize
     abs_p_top =  scroll_memory[1] + player_pos.y
-    print(player_pos.x, scroll[0], scroll_memory[0])
 
     if abs_p_right >= len(world[0])*tilesize:
         rest = abs_p_right - len(world[0])*tilesize
         scroll[0] = rest # scrolls rest  
-        if rest == 0:
-            print("Stuck 3")
     if abs_p_left <= 0:
         rest = abs_p_left - 0
         scroll[0] = rest
-        if rest == 0:
-            print("Stuck 4")
     if abs_p_bottom >= len(world)*tilesize:
         rest = abs_p_bottom -len(world)*tilesize 
         scroll[1] = rest
-        if rest == 0:
-            print("Stuck 5")
     if abs_p_top <= 0:
         rest = abs_p_top
         scroll[1] = rest
-        if rest == 0:
-            print("Stuck 6")
 
 
-    print(scroll[0])
     scroll_memory[0] -= scroll[0]
     scroll_memory[1] -= scroll[1]
 
@@ -166,7 +169,6 @@ while not done:
         screen.blit(tile[0][int(a)], tile[1])
 
     a+=0.3
-    print(int(a)%4)
     if a >= 4:
         a=0
 
