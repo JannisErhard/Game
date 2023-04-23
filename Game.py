@@ -6,18 +6,23 @@ pg.init()
 
 #  load graphics
 ball = pg.image.load("PNGS/intro_ball.gif")
+indices = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 water_images = []
-water_images.append(pg.image.load("PNGS/water_0.png"))
-water_images.append(pg.image.load("PNGS/water_1.png"))
-water_images.append(pg.image.load("PNGS/water_2.png"))
-water_images.append(pg.image.load("PNGS/water_3.png"))
+for i in indices:
+    sublist = []
+    sublist.append(pg.image.load(f"PNGS/water_{i}_1.png"))
+    sublist.append(pg.image.load(f"PNGS/water_{i}_2.png"))
+    sublist.append(pg.image.load(f"PNGS/water_{i}_3.png"))
+    sublist.append(pg.image.load(f"PNGS/water_{i}_4.png"))
+    water_images.append(sublist)
+
 grass = pg.image.load("PNGS/grass01.png")
 
 n_x_tiles, n_y_tiles = 15, 9
 i_zoom =3 
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
 screen = pg.display.set_mode(window, pg.RESIZABLE)
-tilesize = screen.get_width()/n_x_tiles 
+tilesize = screen.get_width()/(n_x_tiles*i_zoom)
 background = pg.Surface(window)
 
 # variables for scrolling
@@ -30,7 +35,7 @@ ballrect = small_ball.get_rect()
 
 
 #### Populate the surface with objects to be displayed ####
-world = campaign[7]
+world = campaign[8]
 obstacle_list = []
 bg_list = []
 for y, sublist in enumerate(world):
@@ -40,9 +45,18 @@ for y, sublist in enumerate(world):
         img_rect.x, img_rect.y = x*tilesize,y*tilesize
         tile_data = (img, img_rect)
         bg_list.append(tile_data) 
+        if tile in "1234567890101112131415" :
+            print(tile, len(water_images))
+            imgs = []
+            for img in water_images[int(tile)-1]:
+                imgs.append(pg.transform.scale(img,(tilesize,tilesize)))
+            img_rect = imgs[0].get_rect()
+            img_rect.x, img_rect.y = x*tilesize,y*tilesize
+            tile_data = (imgs, img_rect)
+            obstacle_list.append(tile_data)
         if tile == '#':
             imgs = []
-            for img in water_images:
+            for img in water_images[0]:
                 imgs.append(pg.transform.scale(img,(tilesize,tilesize)))
             img_rect = imgs[0].get_rect()
             img_rect.x, img_rect.y = x*tilesize,y*tilesize
