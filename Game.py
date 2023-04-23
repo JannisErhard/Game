@@ -1,33 +1,31 @@
 #!/usr/bin/env python3
-import pygame
+import pygame as pg 
 from World.maps import *
 
-pygame.init()
+pg.init()
 
 #  load graphics
-ball = pygame.image.load("PNGS/intro_ball.gif")
-tilset = pygame.image.load("PNGS/032-Heaven01_b.png")
-water_autotiles = pygame.image.load("PNGS/001-G_Water01.png")
+ball = pg.image.load("PNGS/intro_ball.gif")
 water_images = []
-water_images.append(pygame.image.load("PNGS/water_0.png"))
-water_images.append(pygame.image.load("PNGS/water_1.png"))
-water_images.append(pygame.image.load("PNGS/water_2.png"))
-water_images.append(pygame.image.load("PNGS/water_3.png"))
-grass = pygame.image.load("PNGS/grass01.png")
+water_images.append(pg.image.load("PNGS/water_0.png"))
+water_images.append(pg.image.load("PNGS/water_1.png"))
+water_images.append(pg.image.load("PNGS/water_2.png"))
+water_images.append(pg.image.load("PNGS/water_3.png"))
+grass = pg.image.load("PNGS/grass01.png")
 
 n_x_tiles, n_y_tiles = 15, 9
 i_zoom =3 
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
-screen = pygame.display.set_mode(window, pygame.RESIZABLE)
+screen = pg.display.set_mode(window, pg.RESIZABLE)
 tilesize = screen.get_width()/n_x_tiles 
-background = pygame.Surface(window)
+background = pg.Surface(window)
 
 # variables for scrolling
 thr=tilesize*4
 scroll = [0,0]
 scroll_memory = [0,0]
 
-small_ball =  pygame.transform.scale(ball, (tilesize, tilesize))
+small_ball =  pg.transform.scale(ball, (tilesize, tilesize))
 ballrect = small_ball.get_rect()
 
 
@@ -37,7 +35,7 @@ obstacle_list = []
 bg_list = []
 for y, sublist in enumerate(world):
     for x, tile in enumerate(sublist):
-        img = pygame.transform.scale(grass,(tilesize,tilesize))
+        img = pg.transform.scale(grass,(tilesize,tilesize))
         img_rect = img.get_rect()
         img_rect.x, img_rect.y = x*tilesize,y*tilesize
         tile_data = (img, img_rect)
@@ -45,7 +43,7 @@ for y, sublist in enumerate(world):
         if tile == '#':
             imgs = []
             for img in water_images:
-                imgs.append(pygame.transform.scale(img,(tilesize,tilesize)))
+                imgs.append(pg.transform.scale(img,(tilesize,tilesize)))
             img_rect = imgs[0].get_rect()
             img_rect.x, img_rect.y = x*tilesize,y*tilesize
             tile_data = (imgs, img_rect)
@@ -56,32 +54,32 @@ print(obstacle_list[0])
 #### Update the the display and wait ####
 done = False
 
-player_pos  = pygame.Vector2((5)*tilesize, (5)*tilesize)
+player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
 
 a=0
 
 while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             done = True
-        #if event.type == pygame.VIDEORESIZE: # this would lead ot problems with the scrolling
-        #    screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+        #if event.type == pg.VIDEORESIZE: # this would lead ot problems with the scrolling
+        #    screen = pg.display.set_mode((event.w, event.h), pg.RESIZABLE)
 
     scroll = [0,0]
-    keys = pygame.key.get_pressed()
+    keys = pg.key.get_pressed()
 
 
     dx, dy = 0, 0
-    if keys[pygame.K_w]:
+    if keys[pg.K_w]:
         if player_pos.y-dt > 0: 
             dy = -dt
-    if keys[pygame.K_s]:
+    if keys[pg.K_s]:
         if player_pos.y+dt+tilesize < screen.get_height(): 
             dy =  dt
-    if keys[pygame.K_a]:
+    if keys[pg.K_a]:
         if  player_pos.x-dt > 0:
             dx =  -dt
-    if keys[pygame.K_d]:
+    if keys[pg.K_d]:
         if player_pos.x+dt+tilesize < screen.get_width():
             dx =  dt
 
@@ -174,10 +172,10 @@ while not done:
 
 
     screen.blit(small_ball, player_pos)
-    pygame.display.flip()
-    pygame.time.Clock().tick(60)
-    dt = tilesize/4 #pygame.time.Clock().tick(120)/1
+    pg.display.flip()
+    pg.time.Clock().tick(60)
+    dt = tilesize/4 #pg.time.Clock().tick(120)/1
 ## Update the the display and wait ####
 
-pygame.quit()
+pg.quit()
 
