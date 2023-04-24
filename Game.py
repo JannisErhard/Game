@@ -6,7 +6,7 @@ pg.init()
 
 #  load graphics
 ball = pg.image.load("PNGS/intro_ball.gif")
-indices = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+indices = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
 water_images = []
 for i in indices:
     sublist = []
@@ -45,7 +45,7 @@ for y, sublist in enumerate(world):
         img_rect.x, img_rect.y = x*tilesize,y*tilesize
         tile_data = (img, img_rect)
         bg_list.append(tile_data) 
-        if tile in "1234567890101112131415" :
+        if tile in "12345678901011121314151617181920212223" :
             print(tile, len(water_images))
             imgs = []
             for img in water_images[int(tile)-1]:

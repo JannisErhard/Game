@@ -69,8 +69,24 @@ for i, row in enumerate(raw):
                 #################################
                 if raw[i-1][j]  ==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  ==' ' :
                    processed[i][j] = '3'
+                #################################
+                if raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' ' and raw[i+1][j]  ==' ' :
+                   processed[i][j] = '4'
+                #################################
+                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
+                   processed[i][j] = '5'
+                #################################
+                if  raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' '  and raw[i+1][j]  =='#'  :
+                   processed[i][j] = '6'
+                #################################
+                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
+                   processed[i][j] = '7'
+                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#'  :
+                   processed[i][j] = '8'
                 if raw[i-1][j]  ==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  =='#' :
                    processed[i][j] = '9'
+                if  raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
+                   processed[i][j] = '10'
                 if raw[i-1][j]  =='#' and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  ==' ' : 
                    processed[i][j] = '11'
 
@@ -83,22 +99,24 @@ for i, row in enumerate(raw):
                    processed[i][j] = '14'
                 if raw[i-1][j]  =='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' ' :
                    processed[i][j] = '15'
-                #################################
-                if raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' ' and raw[i+1][j]  ==' ' :
-                   processed[i][j] = '4'
-                #################################
-                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
-                   processed[i][j] = '5'
-                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#'  :
-                   processed[i][j] = '8'
-                if  raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
-                   processed[i][j] = '10'
-                #################################
-                if  raw[i-1][j]  =='#' and  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' '  and raw[i+1][j]  =='#'  :
-                   processed[i][j] = '6'
-                #################################
-                if  raw[i-1][j]  ==' ' and  raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' '  :
-                   processed[i][j] = '7'
+                ################################# 3 obstacles neighbouring, bunched up
+                if  raw[i-1][j]  ==' '  and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  =='#' and raw[i+1][j-1] == '#': # left bottom
+                   processed[i][j] = '19'
+                if  raw[i-1][j]  =='#'  and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  ==' ' and raw[i-1][j-1] == '#': # left top
+                   processed[i][j] = '18'
+                if  raw[i-1][j]  ==' '  and raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#' and raw[i+1][j+1] == '#': # right bottom
+                   processed[i][j] = '17'
+                if  raw[i-1][j]  =='#'  and raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' ' and raw[i-1][j+1] == '#': # right top
+                   processed[i][j] = '16'
+                ################################# 5 obstacles neighbouring, bunched up
+                if  raw[i-1][j]  =='#'  and raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#' and raw[i-1][j+1] == '#' and raw[i+1][j+1] == '#' : # left bottom
+                   processed[i][j] = '20'
+                if  raw[i-1][j]  =='#'  and raw[i][j-1]  =='#' and raw[i][j+1]  ==' '  and raw[i+1][j]  =='#' and raw[i-1][j-1] == '#' and raw[i+1][j-1] == '#' : # left top
+                   processed[i][j] = '21'
+                if  raw[i-1][j]  ==' '  and raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#' and raw[i+1][j+1] == '#' and raw[i-1][j+1] == '#': # right bottom
+                   processed[i][j] = '22'
+                if  raw[i-1][j]  =='#'  and raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' ' and raw[i-1][j-1] == '#' and raw[i-1][j+1] == '#': # right top
+                   processed[i][j] = '23'
         if i == 0 and j > 0 and i < len(raw)-1 and j < len(raw[0])-1:
             if tile == '#':
                 # neighbor is below
@@ -106,6 +124,12 @@ for i, row in enumerate(raw):
                    processed[i][j] = '4'
                 if  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' ' and raw[i+1][j]  =='#' :
                    processed[i][j] = '6'
+                if  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#' and raw[i+1][j]  ==' ' :
+                   processed[i][j] = '16'
+                if  raw[i][j-1]  =='#' and raw[i][j+1]  ==' ' and raw[i+1][j]  ==' ' :
+                   processed[i][j] = '18'
+                if  raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j]  ==' ' :
+                   processed[i][j] = '23'
 
 for row in raw:
     print(row)
