@@ -6,7 +6,7 @@ pg.init()
 
 #  load graphics
 ball = pg.image.load("PNGS/intro_ball.gif")
-indices = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
+indices = [i for i in range(1,46+1)]
 water_images = []
 for i in indices:
     sublist = []
@@ -22,7 +22,7 @@ n_x_tiles, n_y_tiles = 15, 9
 i_zoom =3 
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
 screen = pg.display.set_mode(window, pg.RESIZABLE)
-tilesize = screen.get_width()/(n_x_tiles)
+tilesize = screen.get_width()/(n_x_tiles*i_zoom)
 background = pg.Surface(window)
 
 # variables for scrolling
@@ -45,7 +45,7 @@ for y, sublist in enumerate(world):
         img_rect.x, img_rect.y = x*tilesize,y*tilesize
         tile_data = (img, img_rect)
         bg_list.append(tile_data) 
-        if tile in "123456789010111213141516171819202122232425262728293031" :
+        if tile in "123456789010111213141516171819202122232425262728293031323334353637383940414243444546" :
             print(tile, len(water_images))
             imgs = []
             for img in water_images[int(tile)-1]:

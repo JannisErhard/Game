@@ -128,6 +128,9 @@ for i, row in enumerate(raw):
                    processed[i][j] = '31'                                                                                           
                 if raw[i-1][j]  =='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' ' and raw[i-1][j+1] == '#':
                    processed[i][j] = '30'
+                ################################# 4 obstacles, 4 isolated
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '44'
                 ################################# 5 obstacles neighbouring, bunched up
                 # atop                      left                   right               below                      top right                bottom right               
                 if  raw[i-1][j]  =='#'  and raw[i][j-1]  ==' ' and raw[i][j+1]  =='#'  and raw[i+1][j]  =='#' and raw[i-1][j+1] == '#' and raw[i+1][j+1] == '#' : # left is way
@@ -138,6 +141,47 @@ for i, row in enumerate(raw):
                    processed[i][j] = '22'
                 if  raw[i-1][j]  =='#'  and raw[i][j-1]  =='#' and raw[i][j+1]  =='#'  and raw[i+1][j]  ==' ' and raw[i-1][j-1] == '#' and raw[i-1][j+1] == '#': # bottom is way
                    processed[i][j] = '23'
+                ################################# 5 obstacles neighbouring, bunched up, 2 isolated 
+                #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '40'
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '41'
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '42'
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '43'
+                ################################# 6 obstacles neighbouring, bunched up, one isolated 
+                #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '36'
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '37'
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '38'
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '39'
+                ################################# 6 obstacles neighbouring, two bunched groups of 3 
+                #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '46'
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '45'
+                ################################# 7 obstacles neighbouring, bunched up
+                #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '32'
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '33'
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                   processed[i][j] = '34'
+                if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]=='#' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
+                   processed[i][j] = '35'
+
+# 32 33 34 35 36 37 38 39 40 41 42 43 44
+# 0x x0 00 00 xx x0 0x 00 x0 xx 0x xx xx
+# 00 00 x0 0x 00 x0 0x xx xx x0 xx 0x xx
+  
         if i == 0 and j > 0 and i < len(raw)-1 and j < len(raw[0])-1:
             if tile == '#':
                 # neighbor is below
