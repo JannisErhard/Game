@@ -149,7 +149,7 @@ for i, row in enumerate(raw):
                    processed[i][j] = '41'
                 if raw[i-1][j-1]=='#' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]==' ' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
                    processed[i][j] = '42'
-                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]=='#' :
+                if raw[i-1][j-1]==' ' and raw[i-1][j]  =='#' and raw[i-1][j+1]==' ' and raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j-1]=='#' and raw[i+1][j]  =='#' and raw[i+1][j+1]==' ' :
                    processed[i][j] = '43'
                 ################################# 6 obstacles neighbouring, bunched up, one isolated 
                 #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
