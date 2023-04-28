@@ -6,7 +6,8 @@ pg.init()
 
 #  load graphics
 ball = pg.image.load("PNGS/intro_ball.gif")
-indices = [i for i in range(1,46+1)]
+indices = [i for i in range(1,47+1)]
+c_indices = [str(i) for i in indices]
 water_images = []
 for i in indices:
     sublist = []
@@ -45,8 +46,7 @@ for y, sublist in enumerate(world):
         img_rect.x, img_rect.y = x*tilesize,y*tilesize
         tile_data = (img, img_rect)
         bg_list.append(tile_data) 
-        if tile in "123456789010111213141516171819202122232425262728293031323334353637383940414243444546" :
-            print(tile, len(water_images))
+        if tile in c_indices:
             imgs = []
             for img in water_images[int(tile)-1]:
                 imgs.append(pg.transform.scale(img,(tilesize,tilesize)))

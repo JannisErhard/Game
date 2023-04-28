@@ -1,6 +1,23 @@
 #!/usr/bin/env python3
 import copy
 
+def right(i,j,raw):
+    return raw[i][j+1] == '#'
+def left(i,j,raw):
+    return raw[i][j-1] == '#'
+def top(i,j,raw):
+    return raw[i-1][j] == '#'
+def bottom(i,j,raw):
+    return raw[i+1][j] == '#'
+
+def top_left(i,j,raw):
+    return raw[i-1][j-1] == '#'
+def top_right(i,j,raw):
+    return raw[i-1][j+1] == '#'
+def bottom_left(i,j,raw):
+    return raw[i+1][j-1] == '#'
+def bottom_right(i,j,raw):
+    return raw[i+1][j+1] == '#'
 
 
 raw=[[ ' ', '#', ' ', '#', ' ', ' ', ' ', '#', '#', ' ', '#', ' ', ' ', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',  ],
@@ -182,31 +199,169 @@ for i, row in enumerate(raw):
 # 0x x0 00 00 xx x0 0x 00 x0 xx 0x xx xx
 # 00 00 x0 0x 00 x0 0x xx xx x0 xx 0x xx
   
-        if i == 0 and j > 0 and i < len(raw)-1 and j < len(raw[0])-1:
+        if i == 0 and j > 0 and i < len(raw)-1 and j < len(raw[0])-1: # top  border
             if tile == '#':
-                # neighbor is below
-                if  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' ' and raw[i+1][j]  ==' ' :
-                   processed[i][j] = '4'
-                if  raw[i][j-1]  ==' ' and raw[i][j+1]  ==' ' and raw[i+1][j]  =='#' :
-                   processed[i][j] = '6'
-                if  raw[i][j-1]  ==' ' and raw[i][j+1]  =='#' and raw[i+1][j]  ==' ' :
-                   processed[i][j] = '16'
-                if  raw[i][j-1]  =='#' and raw[i][j+1]  ==' ' and raw[i+1][j]  ==' ' :
-                   processed[i][j] = '18'
-                if  raw[i][j-1]  =='#' and raw[i][j+1]  =='#' and raw[i+1][j]  ==' ' :
-                   processed[i][j] = '23'
+                processed[i][j] = '4'
+                if bottom(i,j,raw):
+                    processed[i][j] = '6'
+                if right(i,j,raw):
+                    processed[i][j] = '16'
+                if left(i,j,raw):
+                    processed[i][j] = '18'
+                if bottom(i,j,raw) and right(i,j,raw):
+                    processed[i][j] = '20'
+                if bottom(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '21'
+                if right(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '23'
+                if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '39'
+                if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw):
+                    processed[i][j] = '35'
+                if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw) and bottom_right(i,j,raw):
+                    processed[i][j] = '34'
+                if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw) and bottom_right(i,j,raw):
+                    processed[i][j] = '47'
+        if i > 0 and j > 0 and i == len(raw)-1 and j < len(raw[0])-1: # bottom border
+            if tile == '#':
+                processed[i][j] = '2'
+                if top(i,j,raw):
+                    processed[i][j] = '6'
+                if right(i,j,raw):
+                    processed[i][j] = '17'
+                if left(i,j,raw):
+                    processed[i][j] = '19'
+                if top(i,j,raw) and right(i,j,raw):
+                    processed[i][j] = '20'
+                if top(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '21'
+                if right(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '22'
+                if top(i,j,raw) and right(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '36'
+                if top(i,j,raw) and right(i,j,raw) and left(i,j,raw) and top_left(i,j,raw):
+                    processed[i][j] = '32'
+                if top(i,j,raw) and right(i,j,raw) and left(i,j,raw) and top_right(i,j,raw):
+                    processed[i][j] = '33'
+                if top(i,j,raw) and right(i,j,raw) and left(i,j,raw) and top_left(i,j,raw) and top_right(i,j,raw):
+                    processed[i][j] = '47'
 
-for row in raw:
-    print(row)
+        if i > 0 and j > 0 and i < len(raw)-1 and j == len(raw[0])-1: # right border 
+            if tile == '#':
+                processed[i][j] = '5'
+                if top(i,j,raw):
+                    processed[i][j] = '16'
+                if bottom(i,j,raw):
+                    processed[i][j] = '17'
+                if left(i,j,raw):
+                    processed[i][j] = '7'
+                if top(i,j,raw) and bottom(i,j,raw):
+                    processed[i][j] = '20'
+                if top(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '23'
+                if bottom(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '28'
+                if top(i,j,raw) and bottom(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '37'
+                if top(i,j,raw) and bottom(i,j,raw) and left(i,j,raw) and top_left(i,j,raw):
+                    processed[i][j] = '34'
+                if top(i,j,raw) and bottom(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw):
+                    processed[i][j] = '33'
+                if top(i,j,raw) and bottom(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw) and top_left(i,j,raw):
+                    processed[i][j] = '47'
+
+        if i > 0 and j == 0 and i < len(raw)-1 and j < len(raw[0])-1: # left border
+            if tile == '#':
+                processed[i][j] = '3'
+                if raw[i-1][j]  =='#':
+                    processed[i][j] = '18'
+                if raw[i][j+1] == '#':
+                    processed[i][j] = '7'
+                if raw[i+1][j] == '#':
+                    processed[i][j] = '19'
+                if  raw[i-1][j]  =='#' and  raw[i+1][j]  =='#':
+                    processed[i][j] = '21'
+                if  raw[i-1][j]  =='#' and  raw[i][j+1]  =='#':
+                    processed[i][j] = '31'
+                if  raw[i+1][j]  =='#' and  raw[i][j+1]  =='#':
+                    processed[i][j] = '29'
+                if raw[i-1][j]  =='#' and  raw[i][j+1]  =='#'  and  raw[i-1][j+1]  =='#':
+                    processed[i][j] = '23'
+                if raw[i+1][j]  =='#' and  raw[i][j+1]  =='#'  and  raw[i+1][j+1]  =='#':
+                    processed[i][j] = '22'
+                if raw[i-1][j]  =='#' and  raw[i+1][j]  =='#'  and  raw[i][j+1]  =='#':
+                    processed[i][j] = '38'
+                if raw[i-1][j]  =='#' and  raw[i+1][j]  =='#'  and  raw[i][j+1]  =='#' and raw[i+1][j+1]  =='#':
+                    processed[i][j] = '32'
+                if raw[i-1][j]  =='#' and  raw[i+1][j]  =='#'  and  raw[i][j+1]  =='#' and raw[i-1][j+1]  =='#':
+                    processed[i][j] = '35'
+                if raw[i-1][j]  =='#' and  raw[i+1][j]  =='#'  and  raw[i][j+1]  =='#' and raw[i-1][j+1]  =='#' and raw[i+1][j+1]  =='#':
+                    processed[i][j] = '47'
+
+        if i == 0 and j == 0 and i < len(raw)-1 and j < len(raw[0])-1: # top left corner
+            if tile == '#':
+                processed[i][j] = '18'
+                if bottom(i,j,raw):
+                    processed[i][j] = '21'
+                if right(i,j,raw):
+                    processed[i][j] = '23'
+                if bottom(i,j,raw) and right(i,j,raw):
+                    processed[i][j] = '35'
+                if bottom(i,j,raw) and right(i,j,raw) and bottom_right(i,j,raw):
+                    processed[i][j] = '47'
+
+        if i > 0 and j == 0 and i == len(raw)-1 and j < len(raw[0])-1: # bottom left corner
+            if tile == '#':
+                processed[i][j] = '19'
+                if top(i,j,raw):
+                    processed[i][j] = '21'
+                if right(i,j,raw):
+                    processed[i][j] = '22'
+                if top(i,j,raw) and right(i,j,raw):
+                    processed[i][j] = '32'
+                if top(i,j,raw) and right(i,j,raw) and bottom_right(i,j,raw):
+                    processed[i][j] = '47'
+
+        if i == 0 and j > 0 and i < len(raw)-1 and j == len(raw[0])-1: # top right corner
+            if tile == '#':
+                processed[i][j] = '16'
+                if bottom(i,j,raw):
+                    processed[i][j] = '20'
+                if left(i,j,raw):
+                    processed[i][j] = '23'
+                if bottom(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '34'
+                if bottom(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw):
+                    processed[i][j] = '47'
+
+        if i > 0 and j > 0 and i == len(raw)-1 and j == len(raw[0])-1: # bottom right corner
+            if tile == '#':
+                processed[i][j] = '17'
+                if top(i,j,raw):
+                    processed[i][j] = '20'
+                if left(i,j,raw):
+                    processed[i][j] = '22'
+                if top(i,j,raw) and left(i,j,raw):
+                    processed[i][j] = '33'
+                if top(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw):
+                    processed[i][j] = '47'
 
 
-print("")
 
-for row in processed:
-    print(row)
-#print(raw)
-print("")
+
+#for row in raw:
+#    print(row)
+#
+#
+#print("")
+#
+#for row in processed:
+#    print(row)
+##print(raw)
+#print("")
 print(processed)
+
+
 # water cases:
 #   x 0 x   x 0 x   x 0 x   x 4 x   x 0 x   x A x   x 0 x   x 0 x   x 0 x   x 8 x   x 9 x     x C x    x C x    x 0 x    x C x    0 D D   0 0 0   0 0 0 
 #   0 1 0   0 2 0   3 3 0   0 4 0   0 5 5   0 A 0   B B B   0 6 6   7 7 0   8 8 0   0 9 9     C C 0    0 C C    C C C    C C C    0 D D   E E E   E E E
