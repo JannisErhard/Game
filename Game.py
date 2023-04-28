@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 import pygame as pg 
 from World.maps import *
+import sys
+from Tools.make_maps_2 import generate_map,generate_map_labyrinth,generate_map_labyrinth_2,generate_map_labyrinth_3
+from Tools.process_map import process 
+from Tools.place_in_map import place_in_map
 
 pg.init()
 
@@ -20,7 +24,7 @@ for i in indices:
 grass = pg.image.load("PNGS/grass01.png")
 
 n_x_tiles, n_y_tiles = 15, 9
-i_zoom =3 
+i_zoom = 3
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
 screen = pg.display.set_mode(window, pg.RESIZABLE)
 tilesize = screen.get_width()/(n_x_tiles*i_zoom)
@@ -36,7 +40,16 @@ ballrect = small_ball.get_rect()
 
 
 #### Populate the surface with objects to be displayed ####
-world = campaign[8]
+player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
+world = generate_map_labyrinth_3(50,50,1005,20)
+print(player_pos)
+
+player_pos.y, player_pos.x = place_in_map(world)
+#print(player_pos.y, player_pos.x )
+player_pos.y, player_pos.x = int(player_pos.y*tilesize) , int(player_pos.x*tilesize)
+#player_pos.y, player_pos.x =  0, 224
+print(player_pos)
+
 obstacle_list = []
 bg_list = []
 for y, sublist in enumerate(world):
@@ -68,7 +81,6 @@ print(obstacle_list[0])
 #### Update the the display and wait ####
 done = False
 
-player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
 
 a=0
 
