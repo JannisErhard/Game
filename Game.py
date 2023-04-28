@@ -27,7 +27,7 @@ n_x_tiles, n_y_tiles = 15, 9
 i_zoom = 3
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
 screen = pg.display.set_mode(window, pg.RESIZABLE)
-tilesize = screen.get_width()/(n_x_tiles*i_zoom)
+tilesize = screen.get_width()/(n_x_tiles)
 background = pg.Surface(window)
 
 # variables for scrolling
@@ -196,10 +196,11 @@ while not done:
     if a >= 4:
         a=0
 
-    for i in range(int(screen.get_width()//tilesize)):
-        pg.draw.line(screen, (0,0,0), (i*tilesize, 0), (i*tilesize, screen.get_height()))
-    for i in range(int(screen.get_height()//tilesize)):
-        pg.draw.line(screen, (0,0,0), (0,i*tilesize), (screen.get_width(), i*tilesize))
+    # Debug 
+    #for i in range(int(screen.get_width()//tilesize)):
+    #    pg.draw.line(screen, (0,0,0), (i*tilesize, 0), (i*tilesize, screen.get_height()))
+    #for i in range(int(screen.get_height()//tilesize)):
+    #    pg.draw.line(screen, (0,0,0), (0,i*tilesize), (screen.get_width(), i*tilesize))
 
     screen.blit(small_ball, player_pos)
     pg.display.flip()
