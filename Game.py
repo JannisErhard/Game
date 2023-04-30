@@ -23,11 +23,12 @@ for i in indices:
 
 grass = pg.image.load("PNGS/grass01.png")
 
+seed = 0
 n_x_tiles, n_y_tiles = 15, 9
 i_zoom = 3
 window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
 screen = pg.display.set_mode(window, pg.RESIZABLE)
-tilesize = screen.get_width()/(n_x_tiles)
+tilesize = screen.get_width()/(n_x_tiles*i_zoom)
 background = pg.Surface(window)
 
 # variables for scrolling
@@ -41,7 +42,7 @@ ballrect = small_ball.get_rect()
 
 #### Populate the surface with objects to be displayed ####
 player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
-world = generate_map_labyrinth_3(50,50,1005,20)
+world = generate_map_labyrinth_3(50,50,seed,20)
 print(player_pos)
 
 player_pos.y, player_pos.x = place_in_map(world)
@@ -49,6 +50,8 @@ player_pos.y, player_pos.x = place_in_map(world)
 player_pos.y, player_pos.x = int(player_pos.y*tilesize) , int(player_pos.x*tilesize)
 #player_pos.y, player_pos.x =  0, 224
 print(player_pos)
+
+
 
 obstacle_list = []
 bg_list = []
