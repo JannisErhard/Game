@@ -3,8 +3,6 @@ import copy
 import random
 from .process_map import process
 
-len_y = 25
-len_x = 25 
 possible_directions = [[0,1],[1,0],[-1,0],[0,-1]]
 
 def walker(i,j,max_i,max_j):
@@ -42,10 +40,9 @@ def generate_map_labyrinth_3(len_x,len_y,seed,walkers):
         raw.append(sublist)
 
     direction = [0,0]
-    direction =  possible_directions[random.randint(0,3)]
+    direction = possible_directions[random.randint(0,3)]
     for i in range(walkers):
         a,b = random.randint(1,len_x-1),random.randint(1,len_y-1)
-
         alive = True 
         die = False 
         while alive:
@@ -99,14 +96,14 @@ def generate_map_labyrinth(len_x,len_y,seed,walkers):
     processed = process(raw)
     return processed
 
-def generate_map(len_x,len_y,seed):
+def generate_map(len_x,len_y,seed,p_land):
     random.seed(seed)
     raw = []
-    for i in range(len_y):
+    for _ in range(len_y):
         sublist = []
-        for j in range(len_x):
-            ri = random.randint(1,6)
-            if ri > 4:
+        for _ in range(len_x):
+            ri = random.randint(1,100)
+            if ri <= p_land:
                 sublist.append(' ')
             else:
                 sublist.append('#')

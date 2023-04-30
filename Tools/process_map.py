@@ -73,7 +73,7 @@ def process(raw):
                     if top(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw):
                        processed[i][j] = '24'
                     if top(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and top_right(i,j,raw)   :
-                       processed[i][j] = '25'                                                                                           
+                       processed[i][j] = '25'
                     if top(i,j,raw) and left(i,j,raw) and bottom(i,j,raw) and bottom_left(i,j,raw)  :
                        processed[i][j] = '26'
                     if top(i,j,raw) and left(i,j,raw) and bottom(i,j,raw) and top_left(i,j,raw)     :
@@ -81,11 +81,11 @@ def process(raw):
                     if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and top_right(i,j,raw)     :
                        processed[i][j] = '30'
                     if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and top_left(i,j,raw)      :
-                       processed[i][j] = '31'                                                                                           
+                       processed[i][j] = '31'
                     if left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw):
                        processed[i][j] = '28'
                     if left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_left(i,j,raw):
-                       processed[i][j] = '29'                                                                                           
+                       processed[i][j] = '29'
                     if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw):
                        processed[i][j] = '44'
                     ################################# 5 obstacles neighbouring, bunched up
@@ -146,11 +146,15 @@ def process(raw):
                     if left(i,j,raw):
                         processed[i][j] = '18'
                     if bottom(i,j,raw) and right(i,j,raw):
-                        processed[i][j] = '20'
+                        processed[i][j] = '25'
                     if bottom(i,j,raw) and left(i,j,raw):
-                        processed[i][j] = '21'
-                    if right(i,j,raw) and left(i,j,raw):
+                        processed[i][j] = '27'
+                    if right(i,j,raw)  and left(i,j,raw):
                         processed[i][j] = '23'
+                    if bottom(i,j,raw) and right(i,j,raw) and bottom_right(i,j,raw):
+                        processed[i][j] = '20'
+                    if bottom(i,j,raw) and left(i,j,raw)  and bottom_left(i,j,raw):
+                        processed[i][j] = '21'
                     if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw):
                         processed[i][j] = '39'
                     if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw):
@@ -170,11 +174,15 @@ def process(raw):
                     if left(i,j,raw):
                         processed[i][j] = '19'
                     if top(i,j,raw) and right(i,j,raw):
-                        processed[i][j] = '20'
+                        processed[i][j] = '24'
                     if top(i,j,raw) and left(i,j,raw):
-                        processed[i][j] = '21'
+                        processed[i][j] = '26'
                     if right(i,j,raw) and left(i,j,raw):
                         processed[i][j] = '22'
+                    if top(i,j,raw) and left(i,j,raw) and top_left(i,j,raw):
+                        processed[i][j] = '21'
+                    if top(i,j,raw) and right(i,j,raw) and top_right(i,j,raw):
+                        processed[i][j] = '20'
                     if top(i,j,raw) and right(i,j,raw) and left(i,j,raw):
                         processed[i][j] = '36'
                     if top(i,j,raw) and right(i,j,raw) and left(i,j,raw) and top_left(i,j,raw):
