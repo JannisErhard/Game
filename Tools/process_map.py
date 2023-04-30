@@ -28,119 +28,119 @@ def process(raw):
                 #print(i,j)
                 if tile == '#':
                     # neighbor is below
-                    if  raw[i-1][j] == ' ' and raw[i][j-1] == ' ' and raw[i][j+1] == ' ' and raw[i+1][j] == ' ' :
+                    if raw[i-1][j] == ' ' and raw[i][j-1] == ' ' and raw[i][j+1] == ' ' and raw[i+1][j] == ' ' :
                        processed[i][j] = '1'
                     #################################
-                    if  raw[i-1][j] == ' '  and raw[i][j-1] == ' ' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' :
+                    if raw[i-1][j] == ' '  and raw[i][j-1] == ' ' and raw[i][j+1] == ' '  and bottom(i,j,raw) :
                        processed[i][j] = '2'
                     #################################
-                    if raw[i-1][j] == ' ' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' :
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' :
                        processed[i][j] = '3'
                     #################################
-                    if raw[i-1][j] == '#' and  raw[i][j-1] == ' ' and raw[i][j+1] == ' ' and raw[i+1][j] == ' ' :
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and raw[i][j+1] == ' ' and raw[i+1][j] == ' ' :
                        processed[i][j] = '4'
                     #################################
-                    if  raw[i-1][j] == ' ' and  raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == ' '  :
+                    if raw[i-1][j] == ' ' and raw[i][j-1] == ' ' and right(i,j,raw) and raw[i+1][j] == ' '  :
                        processed[i][j] = '5'
                     #################################
-                    if  raw[i-1][j] == '#' and  raw[i][j-1] == ' ' and raw[i][j+1] == ' '  and raw[i+1][j] == '#'  :
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and raw[i][j+1] == ' '  and bottom(i,j,raw)  :
                        processed[i][j] = '6'
                     #################################
-                    if  raw[i-1][j] == ' ' and  raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == ' '  :
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j] == ' '  :
                        processed[i][j] = '7'
-                    if  raw[i-1][j] == ' ' and  raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#'  :
+                    if raw[i-1][j] == ' ' and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw)  :
                        processed[i][j] = '8'
-                    if raw[i-1][j] == ' ' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' :
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) :
                        processed[i][j] = '9'
-                    if  raw[i-1][j] == '#' and  raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == ' '  :
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and raw[i+1][j] == ' '  :
                        processed[i][j] = '10'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' : 
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' : 
                        processed[i][j] = '11'
     
                     ################################# 3 obstacles neighbouring
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' :# right left up down
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) :# right left up down
                        processed[i][j] = '12'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' :
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw) :
                        processed[i][j] = '13'
-                    if raw[i-1][j] == ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' :
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) :
                        processed[i][j] = '14'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == ' ' :
+                    if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and raw[i+1][j] == ' ' :
                        processed[i][j] = '15'
                     ################################# 3 obstacles neighbouring, bunched up
-                    if  raw[i-1][j] == ' '  and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' and raw[i+1][j-1] == '#': # left bottom
+                    if raw[i-1][j] == ' '  and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) and bottom_left(i,j,raw): # left bottom
                        processed[i][j] = '19'
-                    if  raw[i-1][j] == '#'  and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' and raw[i-1][j-1] == '#': # left top
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and raw[i+1][j] == ' ' and top_left(i,j,raw): # left top
                        processed[i][j] = '18'
-                    if  raw[i-1][j] == ' '  and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i+1][j+1] == '#': # right bottom
+                    if raw[i-1][j] == ' '  and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw): # right bottom
                        processed[i][j] = '17'
-                    if  raw[i-1][j] == '#'  and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == ' ' and raw[i-1][j+1] == '#': # right top
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and raw[i+1][j] == ' ' and top_right(i,j,raw): # right top
                        processed[i][j] = '16'
                     ################################# 4 obstacles, 3 neighbouring, 1 isolated
                     #  atop                   left                   right                   below                  
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' and raw[i-1][j-1] == '#':# right left up down
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) and top_left(i,j,raw):# right left up down
                        processed[i][j] = '27'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' and raw[i+1][j-1] == '#':# right left up down
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) and bottom_left(i,j,raw):# right left up down
                        processed[i][j] = '26'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i-1][j+1] == '#':
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw) and top_right(i,j,raw):
                        processed[i][j] = '25'                                                                                           
-                    if raw[i-1][j] == '#' and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i+1][j+1] == '#':
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw):
                        processed[i][j] = '24'
-                    if raw[i-1][j] == ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i+1][j-1] == '#':
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_left(i,j,raw):
                        processed[i][j] = '29'                                                                                           
-                    if raw[i-1][j] == ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i+1][j+1] == '#':
+                    if raw[i-1][j] == ' ' and left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw):
                        processed[i][j] = '28'
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == ' ' and raw[i-1][j-1] == '#':
+                    if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and raw[i+1][j] == ' ' and top_left(i,j,raw):
                        processed[i][j] = '31'                                                                                           
-                    if raw[i-1][j] == '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == ' ' and raw[i-1][j+1] == '#':
+                    if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and raw[i+1][j] == ' ' and top_right(i,j,raw):
                        processed[i][j] = '30'
                     ################################# 4 obstacles, 4 isolated
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '44'
                     ################################# 5 obstacles neighbouring, bunched up
                     # atop                      left                   right               below                      top right                bottom right               
-                    if  raw[i-1][j] == '#'  and raw[i][j-1] == ' ' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i-1][j+1] == '#' and raw[i+1][j+1] == '#' : # left is way
+                    if top(i,j,raw) and raw[i][j-1] == ' ' and right(i,j,raw) and bottom(i,j,raw) and top_right(i,j,raw) and bottom_right(i,j,raw) : # left is way
                        processed[i][j] = '20'
-                    if  raw[i-1][j] == '#'  and raw[i][j-1] == '#' and raw[i][j+1] == ' '  and raw[i+1][j] == '#' and raw[i-1][j-1] == '#' and raw[i+1][j-1] == '#' : # right is way
+                    if top(i,j,raw) and left(i,j,raw) and raw[i][j+1] == ' '  and bottom(i,j,raw) and top_left(i,j,raw) and bottom_left(i,j,raw) : # right is way
                        processed[i][j] = '21'                                                                       # bottom right            
-                    if  raw[i-1][j] == ' '  and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == '#' and raw[i+1][j+1] == '#' and raw[i+1][j-1] == '#': # top is way
+                    if raw[i-1][j] == ' '  and left(i,j,raw) and right(i,j,raw) and bottom(i,j,raw) and bottom_right(i,j,raw) and bottom_left(i,j,raw): # top is way
                        processed[i][j] = '22'
-                    if  raw[i-1][j] == '#'  and raw[i][j-1] == '#' and raw[i][j+1] == '#'  and raw[i+1][j] == ' ' and raw[i-1][j-1] == '#' and raw[i-1][j+1] == '#': # bottom is way
+                    if top(i,j,raw) and left(i,j,raw) and right(i,j,raw) and raw[i+1][j] == ' ' and top_left(i,j,raw) and top_right(i,j,raw): # bottom is way
                        processed[i][j] = '23'
                     ################################# 5 obstacles neighbouring, bunched up, 2 isolated 
                     #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '40'
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '41'
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '42'
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '43'
                     ################################# 6 obstacles neighbouring, bunched up, one isolated 
                     #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '36'
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '37'
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '38'
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '39'
                     ################################# 6 obstacles neighbouring, two bunched groups of 3 
                     #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '46'
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '45'
                     ################################# 7 obstacles neighbouring, bunched up
                     #left top                 top                    top right              left                   right                  bottom left            bottom                 bottom right
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== ' ' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== ' ' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '32'
-                    if raw[i-1][j-1]== ' ' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== ' ' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '33'
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== ' ' and raw[i+1][j] == '#' and raw[i+1][j+1]== '#' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== ' ' and bottom(i,j,raw) and raw[i+1][j+1]== '#' :
                        processed[i][j] = '34'
-                    if raw[i-1][j-1]== '#' and raw[i-1][j] == '#' and raw[i-1][j+1]== '#' and raw[i][j-1] == '#' and raw[i][j+1] == '#' and raw[i+1][j-1]== '#' and raw[i+1][j] == '#' and raw[i+1][j+1]== ' ' :
+                    if raw[i-1][j-1]== '#' and top(i,j,raw) and raw[i-1][j+1]== '#' and left(i,j,raw) and right(i,j,raw) and raw[i+1][j-1]== '#' and bottom(i,j,raw) and raw[i+1][j+1]== ' ' :
                        processed[i][j] = '35'
                     if top(i,j,raw) and bottom(i,j,raw) and left(i,j,raw) and right(i,j,raw) and top_left(i,j,raw) and top_right(i,j,raw) and bottom_left(i,j,raw) and bottom_right(i,j,raw):
                         processed[i][j] = '47'
@@ -169,6 +169,7 @@ def process(raw):
                         processed[i][j] = '34'
                     if bottom(i,j,raw) and right(i,j,raw) and left(i,j,raw) and bottom_left(i,j,raw) and bottom_right(i,j,raw):
                         processed[i][j] = '47'
+
             if i > 0 and j > 0 and i == len(raw)-1 and j < len(raw[0])-1: # bottom border
                 if tile == '#':
                     processed[i][j] = '2'
@@ -222,27 +223,27 @@ def process(raw):
                     processed[i][j] = '3'
                     if raw[i-1][j]== '#':
                         processed[i][j] = '18'
-                    if raw[i][j+1] == '#':
+                    if right(i,j,raw):
                         processed[i][j] = '7'
-                    if raw[i+1][j] == '#':
+                    if bottom(i,j,raw):
                         processed[i][j] = '19'
-                    if  raw[i-1][j] == '#' and  raw[i+1][j] == '#':
+                    if top(i,j,raw) and bottom(i,j,raw):
                         processed[i][j] = '21'
-                    if  raw[i-1][j] == '#' and  raw[i][j+1] == '#':
+                    if top(i,j,raw) and right(i,j,raw):
                         processed[i][j] = '31'
-                    if  raw[i+1][j] == '#' and  raw[i][j+1] == '#':
+                    if bottom(i,j,raw) and right(i,j,raw):
                         processed[i][j] = '29'
-                    if raw[i-1][j] == '#' and  raw[i][j+1] == '#'  and  raw[i-1][j+1] == '#':
+                    if top(i,j,raw) and right(i,j,raw) and top_right(i,j,raw):
                         processed[i][j] = '23'
-                    if raw[i+1][j] == '#' and  raw[i][j+1] == '#'  and  raw[i+1][j+1] == '#':
+                    if bottom(i,j,raw) and right(i,j,raw) and bottom_right(i,j,raw):
                         processed[i][j] = '22'
-                    if raw[i-1][j] == '#' and  raw[i+1][j] == '#'  and  raw[i][j+1] == '#':
+                    if top(i,j,raw) and bottom(i,j,raw) and right(i,j,raw):
                         processed[i][j] = '38'
-                    if raw[i-1][j] == '#' and  raw[i+1][j] == '#'  and  raw[i][j+1] == '#' and raw[i+1][j+1] == '#':
+                    if top(i,j,raw) and bottom(i,j,raw) and right(i,j,raw) and bottom_right(i,j,raw):
                         processed[i][j] = '32'
-                    if raw[i-1][j] == '#' and  raw[i+1][j] == '#'  and  raw[i][j+1] == '#' and raw[i-1][j+1] == '#':
+                    if top(i,j,raw) and bottom(i,j,raw) and right(i,j,raw) and top_right(i,j,raw):
                         processed[i][j] = '35'
-                    if raw[i-1][j] == '#' and  raw[i+1][j] == '#'  and  raw[i][j+1] == '#' and raw[i-1][j+1] == '#' and raw[i+1][j+1] == '#':
+                    if top(i,j,raw) and bottom(i,j,raw) and right(i,j,raw) and top_right(i,j,raw) and bottom_right(i,j,raw):
                         processed[i][j] = '47'
     
             if i == 0 and j == 0 and i < len(raw)-1 and j < len(raw[0])-1: # top left corner
