@@ -41,16 +41,16 @@ small_ball =  pg.transform.scale(ball, (tilesize, tilesize))
 ballrect = small_ball.get_rect()
 
 
-#### Populate the surface with objects to be displayed ####
-player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
+#### Map generation ####
 #world = generate_map_labyrinth_3(50,50,seed,20)
 world = generate_map(15,15,seed,60)
-print(player_pos)
 
-player_pos.y, player_pos.x = place_in_map(world)
-#print(player_pos.y, player_pos.x )
-player_pos.y, player_pos.x = int(player_pos.y*tilesize) , int(player_pos.x*tilesize)
-#player_pos.y, player_pos.x =  0, 224
+#### Player Placement ####
+player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
+
+#player_pos.y, player_pos.x = place_in_map(world)
+#player_pos.y, player_pos.x = int(player_pos.y*tilesize) , int(player_pos.x*tilesize)
+
 print(player_pos)
 
 
@@ -72,16 +72,7 @@ for y, sublist in enumerate(world):
             img_rect.x, img_rect.y = x*tilesize,y*tilesize
             tile_data = (imgs, img_rect)
             obstacle_list.append(tile_data)
-        if tile == '#':
-            imgs = []
-            for img in water_images[0]:
-                imgs.append(pg.transform.scale(img,(tilesize,tilesize)))
-            img_rect = imgs[0].get_rect()
-            img_rect.x, img_rect.y = x*tilesize,y*tilesize
-            tile_data = (imgs, img_rect)
-            obstacle_list.append(tile_data)
 
-print(obstacle_list[0])
 
 #### Update the the display and wait ####
 done = False
