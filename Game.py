@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from math import sqrt
 import pygame as pg 
 from World.maps import *
 import sys
@@ -53,7 +54,45 @@ player_pos  = pg.Vector2((5)*tilesize, (5)*tilesize)
 
 print(player_pos)
 
+class placeable_object:
+    # x is 0 y is 1
+      def __init__(self, position, sprite, tilesize):
+          self.position = position
+          self.sprite = pg.transform.scale(sprite,(tilesize,tilesize))
+          self.rect = self.sprite.get_rect()
+          self.rect.y, self.rect.x = position[0]*tilesize, position[1]*tilesize
+          self.dx, self.dy = 0, 0
+          self.speed = 10
+          print(self.rect.y, self.rect.x)
 
+      def follow(self, target):
+          if self.rect.x > target.x:
+              self.rect.x = self.rect.x-self.speed
+          if self.rect.x < target.x:
+              self.rect.x = self.rect.x+self.speed
+          if self.rect.y > target.y:
+              self.rect.y = self.rect.y-self.speed
+          if self.rect.y < target.y:
+              self.rect.y = self.rect.y+self.speed
+
+      def follow_magnetic(self, target):
+          # increases speed if distance is larger, follows distance vector 
+          self.dx = (target.x - self.rect.x)/10
+          self.dy = (target.y - self.rect.y)/10
+          self.rect.x = self.rect.x + self.dx*self.speed
+          self.rect.y = self.rect.y + self.dy*self.speed
+      
+      def follow_direct(self, target):
+          # follows with constant speed, follows distance vector
+          vnorm = max((sqrt((target.x - self.rect.x)**2+(target.y - self.rect.y)**2)), 10.0)
+          self.dx = (target.x - self.rect.x)/vnorm
+          self.dy = (target.y - self.rect.y)/vnorm
+          self.rect.x = self.rect.x + self.dx*self.speed
+          self.rect.y = self.rect.y + self.dy*self.speed
+
+
+# class developement 
+p1 = placeable_object([9,9], ball, tilesize)
 
 obstacle_list = []
 bg_list = []
@@ -109,7 +148,6 @@ while not done:
 
     # calculate of character has gotten too close to the edge 
     if player_pos.x+dx > screen.get_width() - thr or  player_pos.x+dx < thr:
-#    if player_pos.x > screen.get_width() - thr or  player_pos.x < thr:
         scroll[0] = -dx
         dx = 0  
     if player_pos.y+dy > screen.get_height() - thr or player_pos.y+dy < thr:  
@@ -143,27 +181,37 @@ while not done:
     player_pos.x, player_pos.y = player_pos.x+dx, player_pos.y+dy
     ballrect.x, ballrect.y = player_pos[0],player_pos[1]
 
+    # class developement 
+    p1.follow_direct(ballrect)
+
     # shift bottom layer if character gets too close to the edge 
     for tile in bg_list:
         tile[1][0] = tile[1][0] + scroll[0]
         tile[1][1] = tile[1][1] + scroll[1]
 
+
     # shift obstacle layer if character gets too close to the edge 
     for tile in obstacle_list:
         tile[1][0] = tile[1][0] + scroll[0]
         tile[1][1] = tile[1][1] + scroll[1]
+        
+    # class developement 
+    p1.rect.x , p1.rect.y = p1.rect.x+scroll[0] , p1.rect.y+scroll[1]
 
     screen.fill((0,0,0)) 
     for tile in bg_list:
         screen.blit(tile[0], tile[1])
     for tile in obstacle_list:
         screen.blit(tile[0][int(a)], tile[1])
+   
+    # class developement 
+    screen.blit(p1.sprite, p1.rect)
 
     a+=0.3
     if a >= 4:
         a=0
 
-    # Debug 
+    # Debug draw 32x32 tilegrid
     #for i in range(int(screen.get_width()//tilesize)):
     #    pg.draw.line(screen, (0,0,0), (i*tilesize, 0), (i*tilesize, screen.get_height()))
     #for i in range(int(screen.get_height()//tilesize)):
