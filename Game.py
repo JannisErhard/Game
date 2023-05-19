@@ -28,9 +28,10 @@ grass = pg.image.load("PNGS/grass01.png")
 seed = 9
 n_x_tiles, n_y_tiles = 15, 9
 i_zoom = 3
-window=(32*n_x_tiles*i_zoom,32*n_y_tiles*i_zoom)
+tilesize = 32*i_zoom
+window=(480,288) #-> i_zoom times n_x x n_y tiles are on screen 
 screen = pg.display.set_mode(window, pg.RESIZABLE)
-tilesize = screen.get_width()/(n_x_tiles)
+#tilesize = screen.get_width()/(n_x_tiles)
 background = pg.Surface(window)
 
 # variables for scrolling
